@@ -17,6 +17,7 @@ public class TeacherWindow extends JFrame {
     ArrayList<Alumno> listaAlumnos = new ArrayList<>();
 
     public TeacherWindow() {
+    	setResizable(false);
         listaAlumnos.add(new Alumno("Pepe Perez"));
         listaAlumnos.add(new Alumno("Ana Gómez"));
         listaAlumnos.add(new Alumno("Juan Martínez"));

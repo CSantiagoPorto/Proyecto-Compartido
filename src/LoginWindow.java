@@ -11,8 +11,10 @@ public class LoginWindow extends JFrame {
     private JButton logo;
     private JLabel labelCargo;
 	private JComboBox cbCargo;
+	private JButton btnRegistrar;
 
     public LoginWindow() {
+    	setResizable(false);
     	getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 10));
     	getContentPane().setBackground(new Color(176, 224, 230));
     	setIconImage(Toolkit.getDefaultToolkit().getImage(LoginWindow.class.getResource("/imagenes/logo.png")));
@@ -42,19 +44,19 @@ public class LoginWindow extends JFrame {
         // Botón de iniciar sesión
         loginbtn = new JButton("Iniciar Sesión");
         loginbtn.setFont(new Font("Tahoma", Font.BOLD, 12));
-        loginbtn.setBounds(50, 184, 120, 25);
+        loginbtn.setBounds(30, 165, 120, 25);
         getContentPane().add(loginbtn);
 
         // Botón de limpiar campos
         Limpiarbtn = new JButton("Limpiar");
         Limpiarbtn.setFont(new Font("Tahoma", Font.BOLD, 12));
-        Limpiarbtn.setBounds(372, 184, 80, 25);
+        Limpiarbtn.setBounds(367, 165, 80, 25);
         getContentPane().add(Limpiarbtn);
 
         // Botón de salir
         Salirbtn = new JButton("Salir");
         Salirbtn.setFont(new Font("Tahoma", Font.BOLD, 12));
-        Salirbtn.setBounds(216, 184, 80, 25);
+        Salirbtn.setBounds(206, 165, 80, 25);
         getContentPane().add(Salirbtn);
         
         logo = new JButton("");
@@ -74,12 +76,26 @@ public class LoginWindow extends JFrame {
 		cbCargo.addItem("Alumno");
 		cbCargo.addItem("Profesor");
 		getContentPane().add(cbCargo);
+		
+		//Botón registrase
+		
+		btnRegistrar = new JButton("¿No tiene cuenta? Regístrese!");
+		btnRegistrar.setForeground(new Color(219, 112, 147));
+		btnRegistrar.setBounds(141, 206, 213, 21);
+		getContentPane().add(btnRegistrar);
 
-        // Acción para el botón "Iniciar Sesión"
+        // Lógica del botón "Iniciar Sesión"
         loginbtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	String cargo =(String)cbCargo.getSelectedItem();
                 String user = userField.getText();
                 String password = new String(passwordField.getPassword());
+                
+                //Comprobamos que ha puesto el cargo
+                if ("Seleccione".equals(cargo)) {
+                    JOptionPane.showMessageDialog(null, "Por favor, seleccione un cargo.", "Error", JOptionPane.ERROR_MESSAGE);
+                    
+                }
 
                 // Validación para alumno
                 if (user.equalsIgnoreCase("alumno") && password.equals("uem")) {
@@ -96,15 +112,25 @@ public class LoginWindow extends JFrame {
             }
         });
 
-        // Acción para el botón "Limpiar"
+        //  botón limpiar
         Limpiarbtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 userField.setText("");
                 passwordField.setText("");
             }
         });
+        //Boton para registrar
+        btnRegistrar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                
+                Registro ventanaRegistro = new Registro();
+                ventanaRegistro.setVisible(true);
+                // El dispose() hace que se cierre la ventana de logeo
+                dispose();
+            }
+        });
 
-        // Acción para el botón "Salir"
+        // botón "Salir"
         Salirbtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.exit(EXIT_ON_CLOSE);

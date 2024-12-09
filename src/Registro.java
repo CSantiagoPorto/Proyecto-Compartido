@@ -40,6 +40,8 @@ public class Registro extends JFrame {
      * Create the frame.
      */
     public Registro() {
+    	setResizable(false);
+    	
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
         contentPane = new JPanel();
@@ -80,7 +82,7 @@ public class Registro extends JFrame {
 
        
         JLabel lblFecha = new JLabel("Fecha nacimiento");
-        lblFecha.setBounds(222, 68, 120, 13);
+        lblFecha.setBounds(196, 68, 120, 13);
         contentPane.add(lblFecha);
 
         tfNacimiento = new JTextField();
@@ -90,7 +92,7 @@ public class Registro extends JFrame {
 
         
         JLabel lblSexo = new JLabel("Sexo");
-        lblSexo.setBounds(222, 112, 45, 13);
+        lblSexo.setBounds(196, 112, 45, 13);
         contentPane.add(lblSexo);
 
         comboBoxSexo = new JComboBox<>();
@@ -98,7 +100,6 @@ public class Registro extends JFrame {
         comboBoxSexo.addItem("Seleccione");
         comboBoxSexo.addItem("Masculino");
         comboBoxSexo.addItem("Femenino");
-        comboBoxSexo.addItem("No binario");
         contentPane.add(comboBoxSexo);
 
         
@@ -116,7 +117,7 @@ public class Registro extends JFrame {
         btnCerrar.setBounds(341, 213, 85, 21);
         contentPane.add(btnCerrar);
 
-        // Acción para el botón "Registrarse"
+        // Botón registrarse
         btnRegistro.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String nombre = tfNombre.getText();
