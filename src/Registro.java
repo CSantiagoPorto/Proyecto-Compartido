@@ -48,7 +48,7 @@ public class Registro extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        // Nombre
+        
         JLabel lblNombre = new JLabel("Nombre");
         lblNombre.setBounds(10, 68, 70, 13);
         contentPane.add(lblNombre);
@@ -58,7 +58,7 @@ public class Registro extends JFrame {
         contentPane.add(tfNombre);
         tfNombre.setColumns(10);
 
-        // Apellido
+        
         JLabel lblApellido = new JLabel("Apellido");
         lblApellido.setBounds(10, 112, 70, 13);
         contentPane.add(lblApellido);
@@ -68,7 +68,7 @@ public class Registro extends JFrame {
         contentPane.add(tfApellido);
         tfApellido.setColumns(10);
 
-        // Contraseña
+        
         JLabel lblContraseña = new JLabel("Contraseña");
         lblContraseña.setBounds(10, 162, 70, 13);
         contentPane.add(lblContraseña);
@@ -78,7 +78,7 @@ public class Registro extends JFrame {
         contentPane.add(tfContraseña);
         tfContraseña.setColumns(10);
 
-        // Fecha de nacimiento
+       
         JLabel lblFecha = new JLabel("Fecha nacimiento");
         lblFecha.setBounds(222, 68, 120, 13);
         contentPane.add(lblFecha);
@@ -88,7 +88,7 @@ public class Registro extends JFrame {
         contentPane.add(tfNacimiento);
         tfNacimiento.setColumns(10);
 
-        // Seleccionar el sexo
+        
         JLabel lblSexo = new JLabel("Sexo");
         lblSexo.setBounds(222, 112, 45, 13);
         contentPane.add(lblSexo);
@@ -101,17 +101,17 @@ public class Registro extends JFrame {
         comboBoxSexo.addItem("No binario");
         contentPane.add(comboBoxSexo);
 
-        // Botón Limpiar
+        
         JButton btnLimpiar = new JButton("Limpiar");
         btnLimpiar.setBounds(90, 213, 96, 21);
         contentPane.add(btnLimpiar);
 
-        // Botón Registrarse
+        
         JButton btnRegistro = new JButton("Registrarse");
         btnRegistro.setBounds(222, 213, 85, 21);
         contentPane.add(btnRegistro);
 
-        // Botón Cerrar
+        
         JButton btnCerrar = new JButton("Cerrar");
         btnCerrar.setBounds(341, 213, 85, 21);
         contentPane.add(btnCerrar);
