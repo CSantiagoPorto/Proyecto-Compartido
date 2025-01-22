@@ -104,12 +104,12 @@ public class Registro extends JFrame {
 
         
         JButton btnLimpiar = new JButton("Limpiar");
-        btnLimpiar.setBounds(90, 213, 96, 21);
+        btnLimpiar.setBounds(40, 213, 96, 21);
         contentPane.add(btnLimpiar);
 
         
         JButton btnRegistro = new JButton("Registrarse");
-        btnRegistro.setBounds(222, 213, 85, 21);
+        btnRegistro.setBounds(185, 213, 111, 21);
         contentPane.add(btnRegistro);
 
         
@@ -129,13 +129,8 @@ public class Registro extends JFrame {
                 if (nombre.isEmpty() || apellido.isEmpty() || contraseña.isEmpty() || fechaNacimiento.isEmpty() || "Seleccione".equals(sexo)) {
                     JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(null, 
-                        "Registro exitoso:\n" +
-                        "Nombre: " + nombre + "\n" +
-                        "Apellido: " + apellido + "\n" +
-                        "Contraseña: " + contraseña + "\n" +
-                        "Fecha de nacimiento: " + fechaNacimiento + "\n" +
-                        "Sexo: " + sexo,
+                    JOptionPane.showMessageDialog(null,  "Registro exitoso:\n" + "Nombre: " + nombre + "\n" +"Apellido: " + apellido + "\n" +
+                        "Contraseña: " + contraseña + "\n" +"Fecha de nacimiento: " + fechaNacimiento + "\n" +"Sexo: " + sexo,
                         "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
                 }
             }

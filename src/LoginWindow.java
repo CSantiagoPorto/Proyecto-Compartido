@@ -80,7 +80,7 @@ public class LoginWindow extends JFrame {
 		//Botón registrase
 		
 		btnRegistrar = new JButton("¿No tiene cuenta? Regístrese!");
-		btnRegistrar.setForeground(new Color(219, 112, 147));
+		btnRegistrar.setForeground(Color.BLUE);
 		btnRegistrar.setBounds(141, 206, 213, 21);
 		getContentPane().add(btnRegistrar);
 
@@ -92,9 +92,12 @@ public class LoginWindow extends JFrame {
                 String password = new String(passwordField.getPassword());
                 
                 //Comprobamos que ha puesto el cargo
-                if ("Seleccione".equals(cargo)) {
-                    JOptionPane.showMessageDialog(null, "Por favor, seleccione un cargo.", "Error", JOptionPane.ERROR_MESSAGE);
-                    
+                if (cbCargo.getSelectedIndex()==0) {//Ver clase 4
+                    JOptionPane.showMessageDialog(null, "Por favor, seleccione un cargo.");
+                        
+                //Añadir clase Usuario de la que hereden alumno y profesor y compruebo sobre 
+                        //El objeto. Creamos ventana, la hacemos visible y dispose().
+                        //Una ventana para alumno y otra para profesor
                 }
 
                 // Validación para alumno

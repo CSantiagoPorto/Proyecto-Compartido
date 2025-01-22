@@ -6,7 +6,7 @@ import java.awt.Toolkit;
 import java.awt.Color;
 import java.awt.Font;
 
-public class TeacherWindow extends JFrame {
+public class TeacherWindow extends JFrame implements ActionListener, ItemListener{
     private JComboBox<String> ModulosComboBox;
     private JComboBox<String> AlumnosComboBox; // Nueva JComboBox para seleccionar el alumno
     private JTextField NotaTextField;
@@ -37,7 +37,7 @@ public class TeacherWindow extends JFrame {
         moduloLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
         moduloLabel.setBounds(30, 30, 80, 25);
         getContentPane().add(moduloLabel);
-
+//Array de Strings
         ModulosComboBox = new JComboBox<>(new String[]{"Desarrollo de Interfaces", "Acceso de Datos", "Programación"});
         ModulosComboBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
         ModulosComboBox.setBounds(105, 30, 180, 25);
@@ -85,11 +85,7 @@ public class TeacherWindow extends JFrame {
                     return;
                 }
 
-                JOptionPane.showMessageDialog(null,
-                        "Nota guardada:\n" +
-                        "Módulo: " + moduloSelec + "\n" +
-                        "Alumno: " + alumnoSelec + "\n" +
-                        "Nota: " + notaIngresada);
+                JOptionPane.showMessageDialog(null,"Nota guardada:\n" + "Módulo: " + moduloSelec + "\n" +"Alumno: " + alumnoSelec + "\n" +"Nota: " + notaIngresada);
             }
         });
 
@@ -129,4 +125,16 @@ public class TeacherWindow extends JFrame {
         TeacherWindow teacherWindow = new TeacherWindow();
         teacherWindow.setVisible(true);
     }
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }
