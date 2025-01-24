@@ -5,11 +5,13 @@ import java.util.ArrayList;
 public class Alumno {
     private String nombre;
     private ArrayList<String> modulos;
-    private ArrayList<Double> notas; 
+    private ArrayList<Double> notas;
+    private String contraseña;
 
-    public Alumno(String nombre) {
+    public Alumno(String nombre, String contraseña) {
         this.nombre = nombre;
-        this.modulos = new ArrayList<>(); //Así cada alumno tiene su lista de módulos
+        this.contraseña = contraseña;
+        this.modulos = new ArrayList<>();
         this.notas = new ArrayList<>();
     }
 
@@ -18,8 +20,8 @@ public class Alumno {
     }
 
     public void agregarNota(String modulo, double nota) {
-        this.modulos.add(modulo);
-        this.notas.add(nota);
+        modulos.add(modulo);
+        notas.add(nota);
     }
 
     public ArrayList<String> getModulos() {
@@ -28,15 +30,5 @@ public class Alumno {
 
     public ArrayList<Double> getNotas() {
         return notas;
-    }
-
-    public String mostrarNotas() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < modulos.size(); i++) {
-            sb.append("Módulo: ").append(modulos.get(i))
-              .append(", Nota: ").append(notas.get(i))
-              .append("\n");
-        }
-        return sb.toString();
     }
 }
