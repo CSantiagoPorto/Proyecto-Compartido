@@ -8,7 +8,11 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
 
 public class Registro extends JFrame {
 
@@ -17,8 +21,9 @@ public class Registro extends JFrame {
     private JTextField tfApellido;
     private JTextField tfNombre;
     private JTextField tfContraseña;
-    private JTextField tfNacimiento;
     private JComboBox<String> comboBoxSexo;
+    private JCalendar calendar;
+    private Date fecha;
 
    
     public Registro() {
@@ -67,11 +72,6 @@ public class Registro extends JFrame {
         lblFecha.setBounds(196, 68, 120, 13);
         contentPane.add(lblFecha);
 
-        tfNacimiento = new JTextField();
-        tfNacimiento.setBounds(315, 65, 96, 19);
-        contentPane.add(tfNacimiento);
-        tfNacimiento.setColumns(10);
-
         
         JLabel lblSexo = new JLabel("Sexo");
         lblSexo.setBounds(196, 112, 45, 13);
@@ -98,32 +98,49 @@ public class Registro extends JFrame {
         JButton btnCerrar = new JButton("Cerrar");
         btnCerrar.setBounds(341, 213, 85, 21);
         contentPane.add(btnCerrar);
+        
+        JDateChooser dateChooser = new JDateChooser();
+        dateChooser.setBounds(315, 62, 96, 19);
+        contentPane.add(dateChooser);
 
-        // Botón registrarse
+        // Evento para sacar la fecha
         btnRegistro.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String nombre = tfNombre.getText();
                 String apellido = tfApellido.getText();
                 String contraseña = tfContraseña.getText();
-                String fechaNacimiento = tfNacimiento.getText();
+                //Necesito esta condición para que no pete en caso de no ponerle fecha
+                
+                if (dateChooser.getDate() == null) {
+                    JOptionPane.showMessageDialog(null, "Por favor, seleccione una fecha de nacimiento.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                
+                // Necesitamos coger la fecha del dateChooser y pasarla a un formato que lo ponga normal
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                //Esto permite cambiar el formato al deseado
+                String fechaNacimiento = sdf.format(dateChooser.getDate());
+                //Con esto usamos el objeto sdf para pasarle la fecha que nos da el usuario en Date y que la formatee a normal
+
                 String sexo = (String) comboBoxSexo.getSelectedItem();
 
                 if (nombre.isEmpty() || apellido.isEmpty() || contraseña.isEmpty() || fechaNacimiento.isEmpty() || "Seleccione".equals(sexo)) {
                     JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(null,  "Registro exitoso:\n" + "Nombre: " + nombre + "\n" +"Apellido: " + apellido + "\n" +
+                    JOptionPane.showMessageDialog(null,  "Usario registrado con éxito:\n" + "Nombre: " + nombre + "\n" +"Apellido: " + apellido + "\n" +
                         "Contraseña: " + contraseña + "\n" +"Fecha de nacimiento: " + fechaNacimiento + "\n" +"Sexo: " + sexo,
                         "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
 
+
         btnLimpiar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 tfNombre.setText("");
                 tfApellido.setText("");
                 tfContraseña.setText("");
-                tfNacimiento.setText("");
+                dateChooser.setDate(null); 
                 comboBoxSexo.setSelectedIndex(0);
             }
         });

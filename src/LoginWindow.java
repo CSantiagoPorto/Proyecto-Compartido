@@ -69,7 +69,8 @@ public class LoginWindow extends JFrame {
         btnRegistrar.setForeground(Color.BLUE);
         btnRegistrar.setBounds(206, 200, 100, 30);
         getContentPane().add(btnRegistrar);
-
+        
+       
         // Botón login
         loginbtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
