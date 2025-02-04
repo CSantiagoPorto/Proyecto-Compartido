@@ -20,9 +20,9 @@ public class StudentWindow extends JFrame {
         add(welcomeLabel);
         //Tabla de notas que se rellena con el módulo y la puntuación
         String[] columnNames = {"Asignatura", "Nota"};
-        Object[][] data = new Object[alumno.getModulos().size()][2];
-        for (int i = 0; i < alumno.getModulos().size(); i++) {
-            data[i][0] = alumno.getModulos().get(i);
+        Object[][] data = new Object[alumno.getAsignatura().size()][2];
+        for (int i = 0; i < alumno.getAsignatura().size(); i++) {
+            data[i][0] = alumno.getAsignatura().get(i);
             data[i][1] = alumno.getNotas().get(i);
         }
 

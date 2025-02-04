@@ -22,6 +22,8 @@ public class GestionBD {
 
 	private ResultSet resultado;
 
+	
+	//REVISADO
 	public boolean insertarAlumno(String dni, String nombre, String apellidos, String direccion, String pass) throws SQLException {
 
 		boolean insertado = false;
@@ -55,7 +57,7 @@ public class GestionBD {
 		return insertado;
 
 	}
-
+	//REVISADO
 	public boolean insertarProfesor(String dni, String nombre, String apellidos, String direccion, String pass) throws SQLException {
 
 		boolean insertado = false;
@@ -90,7 +92,7 @@ public class GestionBD {
 
 	}
 
-	public boolean insertarCiclo(String codigo, String nombre, String familia, String titulacion, String horas) throws SQLException {
+	/*public boolean insertarCiclo(String codigo, String nombre, String familia, String titulacion, String horas) throws SQLException {
 
 		boolean insertado = false;
 
@@ -122,15 +124,17 @@ public class GestionBD {
 
 		return insertado;
 
-	}
-
-	public boolean insertarModulo(String clave, String ciclo, String denominacion, String horasc, String curso, String horass) throws SQLException {
+	}*/
+	
+	
+	//revisado y adaptado
+	public boolean insertarAsignatura(String id_asignatura,  String denominacion, String horas, String descripcion) throws SQLException {
 
 		boolean insertado = false;
 
 		con=conexion.getConexion();
 
-		String sql="insert into modulos (CLAVE,CICLO,DENOMINACION,HORASC,CURSO,HORASS) values ('"+clave+"','"+ciclo+"','"+denominacion+"','"+horasc+"','"+curso+"','"+horass+"')";
+		String sql="insert into asignaturas (ID_ASIGNATURA,DENOMINACION,HORAS,DESCRIPCION) values ('"+id_asignatura+"','"+denominacion+"','"+horas+"','"+descripcion+"')";
 
 		try {
 
@@ -157,14 +161,14 @@ public class GestionBD {
 		return insertado;
 
 	}
-
-	public int modificarAlumno(String dni, String nombre, String apellidos, String direccion, String pass) throws SQLException {
+	//REVISADO
+	public int modificarAlumno(String dni_alumno, String nombre, String apellidos, String direccion, String pass) throws SQLException {
 
 		int confirmar=0;
 
 		con=conexion.getConexion();
 
-		String sql="update alumnos set DNI='"+dni+"', NOMBRE='"+nombre+"', APELLIDOS='"+apellidos+"', DIRECCION='"+direccion+"', PASSWORD='"+pass+"' where DNI="+dni+"";
+		String sql="update alumnos set DNI='"+dni_alumno+"', NOMBRE='"+nombre+"', APELLIDOS='"+apellidos+"', DIRECCION='"+direccion+"', PASS='"+pass+"' where DNI="+dni_alumno+"";
 
 		try {
 
@@ -185,14 +189,14 @@ public class GestionBD {
 		return confirmar;
 
 	}
-
-	public int modificarProfesor(String dni, String nombre, String apellidos, String direccion, String pass) throws SQLException {
+//REVISADO
+	public int modificarProfesor(String dni_profesor, String nombre, String apellidos, String direccion, String pass) throws SQLException {
 
 		int confirmar=0;
 
 		con=conexion.getConexion();
 
-		String sql="update profesores set DNI='"+dni+"', NOMBRE='"+nombre+"', APELLIDOS='"+apellidos+"', DIRECCION='"+direccion+"', PASSWORD='"+pass+"' where DNI="+dni+"";
+		String sql="update profesores set DNI='"+dni_profesor+"', NOMBRE='"+nombre+"', APELLIDOS='"+apellidos+"', DIRECCION='"+direccion+"', PASS='"+pass+"' where DNI="+dni_profesor+"";
 
 		try {
 
@@ -214,7 +218,7 @@ public class GestionBD {
 
 	}
  
-public int modificarCiclo(String codigo, String nombre, String familia, String titulacion, String horas) throws SQLException {
+/*public int modificarCiclo(String codigo, String nombre, String familia, String titulacion, String horas) throws SQLException {
 		int confirmar=0;
 		con=conexion.getConexion();
 		String sql="update ciclosformativos set CODIGO='"+codigo+"', NOMBRE='"+nombre+"', FAMILIA='"+familia+"', TITULACION='"+titulacion+"', HORAS='"+horas+"' where CODIGO="+codigo+"";
@@ -228,8 +232,8 @@ public int modificarCiclo(String codigo, String nombre, String familia, String t
 		}
 		return confirmar;
 	}
-	
-	public int modificarModulo(String clave, String ciclo, String denominacion, String horasc, String curso, String horass) throws SQLException {
+	*/
+	/*public int modificarModulo(String clave, String ciclo, String denominacion, String horasc, String curso, String horass) throws SQLException {
 		int confirmar=0;
 		con=conexion.getConexion();
 		String sql="update modulos set CLAVE='"+clave+"', CICLO='"+ciclo+"', DENOMINACION='"+denominacion+"', HORASC='"+horasc+"', CURSO='"+curso+"', HORASS='"+horass+"' where CLAVE="+clave+"";
@@ -242,8 +246,8 @@ public int modificarCiclo(String codigo, String nombre, String familia, String t
 			e.printStackTrace();
 		}
 		return confirmar;
-	}
-	
+	}*/
+	//REVISADO
 	public int eliminarAlumno(String dni) throws SQLException {
 		int confirmar=0;
 		con=conexion.getConexion();
@@ -258,11 +262,11 @@ public int modificarCiclo(String codigo, String nombre, String familia, String t
 		}
 		return confirmar;
 	}
-	
-	public int eliminarProfesor(String dni) throws SQLException {
+	//REVISADO
+	public int eliminarProfesor(String dni_profesor) throws SQLException {
 		int confirmar=0;
 		con=conexion.getConexion();
-		String sql="delete from profesores where DNI="+dni;
+		String sql="delete from profesores where DNI="+dni_profesor;
 		try {
 			st=(Statement) con.createStatement();
 			confirmar=st.executeUpdate(sql);
@@ -274,7 +278,7 @@ public int modificarCiclo(String codigo, String nombre, String familia, String t
 		return confirmar;
 	}
 	
-	public int eliminarCiclo(String codigo) throws SQLException {
+	/*public int eliminarCiclo(String codigo) throws SQLException {
 		int confirmar=0;
 		con=conexion.getConexion();
 		String sql="delete from ciclosformativos where CODIGO="+codigo;
@@ -302,12 +306,30 @@ public int modificarCiclo(String codigo, String nombre, String familia, String t
 			e.printStackTrace();
 		}
 		return confirmar;
-	}
-	
-	public boolean comprobarAlumno(String dni, String pass) throws SQLException {
+	}*/
+	//revisado y cambiado
+	public boolean comprobarAlumno(String dni_alumno, String pass) throws SQLException {
 		boolean encontrado = false;
 		con=conexion.getConexion();
-		String sql="SELECT * FROM alumnos WHERE DNI='"+dni+"'and PASSWORD='"+pass+"' ";
+		String sql="SELECT * FROM alumnos WHERE DNI='"+dni_alumno+"'and PASSWORD='"+pass+"' ";
+		try{
+			st=(Statement) con.createStatement();
+			resultado= st.executeQuery(sql);
+			while (resultado.next()){
+				encontrado = true;
+			}
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return encontrado;
+	}
+	//revisado y cambiado
+	public boolean comprobarProfesor(String dni_profesor, String pass) throws SQLException {
+		boolean encontrado = false;
+		con=conexion.getConexion();
+		String sql="SELECT * FROM profesores WHERE DNI='"+dni_profesor+"'and PASS='"+pass+"' ";
 		try{
 			st=(Statement) con.createStatement();
 			resultado= st.executeQuery(sql);
@@ -322,25 +344,7 @@ public int modificarCiclo(String codigo, String nombre, String familia, String t
 		return encontrado;
 	}
 	
-	public boolean comprobarProfesor(String dni, String pass) throws SQLException {
-		boolean encontrado = false;
-		con=conexion.getConexion();
-		String sql="SELECT * FROM profesores WHERE DNI='"+dni+"'and PASSWORD='"+pass+"' ";
-		try{
-			st=(Statement) con.createStatement();
-			resultado= st.executeQuery(sql);
-			while (resultado.next()){
-				encontrado = true;
-			}
-			
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return encontrado;
-	}
-	
-	public boolean comprobarGerencia(String dni, String pass) throws SQLException {
+	/*public boolean comprobarGerencia(String dni, String pass) throws SQLException {
 		boolean encontrado = false;
 		con=conexion.getConexion();
 		String sql="SELECT * FROM gerencia WHERE DNI='"+dni+"'and PASSWORD='"+pass+"' ";
@@ -374,12 +378,30 @@ public boolean comprobarCiclos(String dni, String pass) throws SQLException {
 			e.printStackTrace();
 		}
 		return encontrado;
-	}
-	
-	public boolean buscarAlumno(String dni) throws SQLException {
+	}*/
+	//REVISADO Y ADAPTADO
+	public boolean buscarAlumno(String dni_alumno) throws SQLException {
 		boolean encontrado = false;
 		con=conexion.getConexion();
-		String sql="SELECT * FROM alumnos WHERE DNI='"+dni+"' ";
+		String sql="SELECT * FROM alumnos WHERE DNI='"+dni_alumno+"' ";
+		try{
+			st=(Statement) con.createStatement();
+			resultado= st.executeQuery(sql);
+			while (resultado.next()){
+				encontrado = true;
+			}
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return encontrado;
+	}
+	//REVISADO Y ADAPTADO
+	public boolean buscarProfesor(String dni_profesor) throws SQLException {
+		boolean encontrado = false;
+		con=conexion.getConexion();
+		String sql="SELECT * FROM profesores WHERE DNI='"+dni_profesor+"' ";
 		try{
 			st=(Statement) con.createStatement();
 			resultado= st.executeQuery(sql);
@@ -394,25 +416,7 @@ public boolean comprobarCiclos(String dni, String pass) throws SQLException {
 		return encontrado;
 	}
 	
-	public boolean buscarProfesor(String dni) throws SQLException {
-		boolean encontrado = false;
-		con=conexion.getConexion();
-		String sql="SELECT * FROM profesores WHERE DNI='"+dni+"' ";
-		try{
-			st=(Statement) con.createStatement();
-			resultado= st.executeQuery(sql);
-			while (resultado.next()){
-				encontrado = true;
-			}
-			
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return encontrado;
-	}
-	
-	public boolean buscarCiclo(String codigo) throws SQLException {
+	/*public boolean buscarCiclo(String codigo) throws SQLException {
 		boolean encontrado = false;
 		con=conexion.getConexion();
 		String sql="SELECT * FROM ciclosformativos WHERE CODIGO='"+codigo+"' ";
@@ -428,12 +432,12 @@ public boolean comprobarCiclos(String dni, String pass) throws SQLException {
 			e.printStackTrace();
 		}
 		return encontrado;
-	}
-	
-	public boolean buscarModulo(String clave) throws SQLException {
+	}*/
+	//REVISADO
+	public boolean buscarAsignatura(String id_asignatura) throws SQLException {
 		boolean encontrado = false;
 		con=conexion.getConexion();
-		String sql="SELECT * FROM modulos WHERE CLAVE='"+clave+"' ";
+		String sql="SELECT * FROM modulos WHERE ID_ASIGNATURA='"+id_asignatura+"' ";
 		try{
 			st=(Statement) con.createStatement();
 			resultado= st.executeQuery(sql);
@@ -447,10 +451,10 @@ public boolean comprobarCiclos(String dni, String pass) throws SQLException {
 		}
 		return encontrado;
 	}
-	
-	public ResultSet devolverAlumno(String dni) throws SQLException {
+	//REVISADO
+	public ResultSet BuscarAlumno(String dni_alumno) throws SQLException {
 		con=conexion.getConexion();
-		String sql="SELECT * FROM alumnos WHERE DNI='"+dni+"' ";
+		String sql="SELECT * FROM alumnos WHERE DNI='"+dni_alumno+"' ";
 		try{
 			st=(Statement) con.createStatement();
 			resultado= st.executeQuery(sql);
@@ -462,9 +466,9 @@ public boolean comprobarCiclos(String dni, String pass) throws SQLException {
 		return resultado;
 	}
 	
-	public ResultSet devolverProfesor(String dni) throws SQLException {
+	public ResultSet BuscarProfesor(String dni_profesor) throws SQLException {
 		con=conexion.getConexion();
-		String sql="SELECT * FROM profesores WHERE DNI='"+dni+"' ";
+		String sql="SELECT * FROM profesores WHERE DNI='"+dni_profesor+"' ";
 		try{
 			st=(Statement) con.createStatement();
 			resultado= st.executeQuery(sql);
@@ -476,7 +480,7 @@ public boolean comprobarCiclos(String dni, String pass) throws SQLException {
 		return resultado;
 	}
 	
-	public ResultSet devolverCiclo(String codigo) throws SQLException {
+	/*public ResultSet devolverCiclo(String codigo) throws SQLException {
 		con=conexion.getConexion();
 		String sql="SELECT * FROM ciclosformativos WHERE CODIGO='"+codigo+"' ";
 		try{
@@ -488,11 +492,11 @@ public boolean comprobarCiclos(String dni, String pass) throws SQLException {
 			e.printStackTrace();
 		}
 		return resultado;
-	}
-	
-	public ResultSet devolverModulo(String clave) throws SQLException {
+	}*/
+	//REVISADO
+	public ResultSet BuscarAsignatura(String id_asignatura) throws SQLException {
 		con=conexion.getConexion();
-		String sql="SELECT * FROM modulos WHERE CLAVE='"+clave+"' ";
+		String sql="SELECT * FROM modulos WHERE CLAVE='"+id_asignatura+"' ";
 		try{
 			st=(Statement) con.createStatement();
 			resultado= st.executeQuery(sql);
@@ -503,8 +507,8 @@ public boolean comprobarCiclos(String dni, String pass) throws SQLException {
 		}
 		return resultado;
 	}
-	
-	public ResultSet devolverAlumnos() throws SQLException {
+	//REVISADO
+	public ResultSet BuscarTodosAlumnos() throws SQLException {
 		con=conexion.getConexion();
 		String sql="SELECT * FROM alumnos";
 		try{
@@ -516,8 +520,8 @@ public boolean comprobarCiclos(String dni, String pass) throws SQLException {
 		}
 		return resultado;
 	}
-	
-	public ResultSet devolverProfesores() throws SQLException {
+	//revisado
+	public ResultSet BuscarTodosProfesores() throws SQLException {
 		con=conexion.getConexion();
 		String sql="SELECT * FROM profesores";
 		try{
@@ -529,7 +533,7 @@ public boolean comprobarCiclos(String dni, String pass) throws SQLException {
 		}
 		return resultado;
 	}
-	public ResultSet devolverCiclos() throws SQLException {
+	/*public ResultSet devolverCiclos() throws SQLException {
 		con=conexion.getConexion();
 		String sql="SELECT * FROM ciclosformativos";
 		try{
@@ -540,9 +544,9 @@ public boolean comprobarCiclos(String dni, String pass) throws SQLException {
 			e.printStackTrace();
 		}
 		return resultado;
-	}
+	}*/
 	
-	public ResultSet devolverModulos() throws SQLException {
+	public ResultSet BuscarTodosAsignaturas() throws SQLException {
 		con=conexion.getConexion();
 		String sql="SELECT * FROM modulos";
 		try{

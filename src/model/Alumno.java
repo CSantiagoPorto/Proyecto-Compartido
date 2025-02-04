@@ -2,33 +2,49 @@ package model;
 
 import java.util.ArrayList;
 
-public class Alumno {
-    private String nombre;
-    private ArrayList<String> modulos;
+public class Alumno extends Usuario {
+	private String dni_alumno;
+   // private String nombre;
+    private ArrayList<String> asignatura;
     private ArrayList<Double> notas;
-    private String contraseña;
+  //  private String contraseña;
 
-    public Alumno(String nombre, String contraseña) {
-        this.nombre = nombre;
-        this.contraseña = contraseña;
-        this.modulos = new ArrayList<>();
-        this.notas = new ArrayList<>();
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void agregarNota(String modulo, double nota) {
-        modulos.add(modulo);
+   
+    /*public void agregarNota(String modulo, double nota) {
+        asignatura.add(modulo);
         notas.add(nota);
-    }
+    }*/
 
-    public ArrayList<String> getModulos() {
-        return modulos;
-    }
+public Alumno(String nombre, String apellidos, String direccion, String pass) {
+	super(nombre, apellidos, direccion, pass);
+}
+public Alumno(String nombre, String apellidos, String direccion, String pass, String dni_alumno) {
+	super(nombre, apellidos, direccion, pass);
+	this.dni_alumno = dni_alumno;
+}
+public String getDni_alumno() {
+	return dni_alumno;
+}
+public ArrayList<String> getAsignatura() {
+	return asignatura;
+}
+public ArrayList<Double> getNotas() {
+	return notas;
+}
+public void setDni_alumno(String dni_alumno) {
+	this.dni_alumno = dni_alumno;
+}
+public void setAsignatura(ArrayList<String> asignatura) {
+	this.asignatura = asignatura;
+}
+public void setNotas(ArrayList<Double> notas) {
+	this.notas = notas;
+}
+@Override
+public String toString() {
+	return "Alumno [dni_alumno=" + dni_alumno + ", asignatura=" + asignatura + ", notas=" + notas + "]";
+}
 
-    public ArrayList<Double> getNotas() {
-        return notas;
-    }
+
+ 
 }
