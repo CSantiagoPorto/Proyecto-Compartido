@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-02-2025 a las 18:01:54
+-- Tiempo de generación: 04-02-2025 a las 17:28:12
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -55,7 +55,7 @@ INSERT INTO `alumnos` (`dni_alumno`, `nombre`, `apellidos`, `direccion`, `pass`)
 CREATE TABLE `asignaturas` (
   `id_asignatura` varchar(100) NOT NULL,
   `denominacion` varchar(100) NOT NULL,
-  `horas` int(11) NOT NULL,
+  `horas` varchar(100) NOT NULL,
   `descripcion` varchar(100) NOT NULL,
   `dni_profesor` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -65,19 +65,19 @@ CREATE TABLE `asignaturas` (
 --
 
 INSERT INTO `asignaturas` (`id_asignatura`, `denominacion`, `horas`, `descripcion`, `dni_profesor`) VALUES
-('A001', 'Programación', 192, 'Introducción a la programación en Java', '12345678A'),
-('A002', 'Bases de Datos', 160, 'Fundamentos de bases de datos y SQL', '87654321B'),
-('A003', 'Entornos de Desarrollo', 96, 'Herramientas y metodologías de desarrollo', '12345678A'),
-('A004', 'Lenguajes de Marcas y Sistemas de Gestión', 128, 'XML, HTML, CSS y ERP', '87654321B'),
-('A005', 'Sistemas Informáticos', 160, 'Hardware, redes y sistemas operativos', '12345678A'),
-('A006', 'FOL', 96, 'Formación y orientación laboral', '87654321B'),
-('A007', 'Acceso a Datos', 120, 'Persistencia y acceso a bases de datos en Java', '12345678A'),
-('A008', 'Desarrollo de Interfaces', 120, 'Diseño y desarrollo de interfaces gráficas', '87654321B'),
-('A009', 'Programación de Servicios y Procesos', 100, 'Programación multihilo y servicios en red', '12345678A'),
-('A010', 'Empresa e Iniciativa Emprendedora', 96, 'Creación y gestión de empresas', '87654321B'),
-('A011', 'Programación Multimedia y Dispositivos Móviles', 120, 'Desarrollo de apps para móviles', '12345678A'),
-('A012', 'Proyecto DAM', 40, 'Proyecto final de desarrollo de aplicaciones', '87654321B'),
-('A013', 'Formación en Centros de Trabajo', 370, 'Prácticas en empresa', '87654321B');
+('A001', 'Programación', '192', 'Introducción a la programación en Java', '12345678A'),
+('A002', 'Bases de Datos', '160', 'Fundamentos de bases de datos y SQL', '87654321B'),
+('A003', 'Entornos de Desarrollo', '96', 'Herramientas y metodologías de desarrollo', '12345678A'),
+('A004', 'Lenguajes de Marcas y Sistemas de Gestión', '128', 'XML, HTML, CSS y ERP', '87654321B'),
+('A005', 'Sistemas Informáticos', '160', 'Hardware, redes y sistemas operativos', '12345678A'),
+('A006', 'FOL', '96', 'Formación y orientación laboral', '87654321B'),
+('A007', 'Acceso a Datos', '120', 'Persistencia y acceso a bases de datos en Java', '12345678A'),
+('A008', 'Desarrollo de Interfaces', '120', 'Diseño y desarrollo de interfaces gráficas', '87654321B'),
+('A009', 'Programación de Servicios y Procesos', '100', 'Programación multihilo y servicios en red', '12345678A'),
+('A010', 'Empresa e Iniciativa Emprendedora', '96', 'Creación y gestión de empresas', '87654321B'),
+('A011', 'Programación Multimedia y Dispositivos Móviles', '120', 'Desarrollo de apps para móviles', '12345678A'),
+('A012', 'Proyecto DAM', '40', 'Proyecto final de desarrollo de aplicaciones', '87654321B'),
+('A013', 'Formación en Centros de Trabajo', '370', 'Prácticas en empresa', '87654321B');
 
 -- --------------------------------------------------------
 
@@ -86,7 +86,7 @@ INSERT INTO `asignaturas` (`id_asignatura`, `denominacion`, `horas`, `descripcio
 --
 
 CREATE TABLE `matriculas` (
-  `id_matricula` int(11) NOT NULL,
+  `id_matricula` varchar(100) NOT NULL,
   `dni_alumno` varchar(100) DEFAULT NULL,
   `id_asignatura` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -96,38 +96,38 @@ CREATE TABLE `matriculas` (
 --
 
 INSERT INTO `matriculas` (`id_matricula`, `dni_alumno`, `id_asignatura`) VALUES
-(6, '11111111A', 'A001'),
-(7, '11111111A', 'A002'),
-(8, '11111111A', 'A003'),
-(9, '11111111A', 'A004'),
-(10, '11111111A', 'A005'),
-(11, '11111111A', 'A006'),
-(12, '22222222B', 'A001'),
-(13, '22222222B', 'A002'),
-(14, '22222222B', 'A003'),
-(15, '22222222B', 'A004'),
-(16, '22222222B', 'A005'),
-(17, '22222222B', 'A006'),
-(18, '33333333C', 'A007'),
-(19, '33333333C', 'A008'),
-(20, '33333333C', 'A009'),
-(21, '33333333C', 'A010'),
-(22, '33333333C', 'A011'),
-(23, '33333333C', 'A012'),
-(24, '33333333C', 'A013'),
-(25, '44444444D', 'A007'),
-(26, '44444444D', 'A008'),
-(27, '44444444D', 'A009'),
-(28, '44444444D', 'A010'),
-(29, '44444444D', 'A011'),
-(30, '44444444D', 'A012'),
-(31, '44444444D', 'A013'),
-(32, '55555555E', 'A001'),
-(33, '55555555E', 'A002'),
-(34, '55555555E', 'A003'),
-(35, '55555555E', 'A004'),
-(36, '55555555E', 'A005'),
-(37, '55555555E', 'A006');
+('10', '11111111A', 'A005'),
+('11', '11111111A', 'A006'),
+('12', '22222222B', 'A001'),
+('13', '22222222B', 'A002'),
+('14', '22222222B', 'A003'),
+('15', '22222222B', 'A004'),
+('16', '22222222B', 'A005'),
+('17', '22222222B', 'A006'),
+('18', '33333333C', 'A007'),
+('19', '33333333C', 'A008'),
+('20', '33333333C', 'A009'),
+('21', '33333333C', 'A010'),
+('22', '33333333C', 'A011'),
+('23', '33333333C', 'A012'),
+('24', '33333333C', 'A013'),
+('25', '44444444D', 'A007'),
+('26', '44444444D', 'A008'),
+('27', '44444444D', 'A009'),
+('28', '44444444D', 'A010'),
+('29', '44444444D', 'A011'),
+('30', '44444444D', 'A012'),
+('31', '44444444D', 'A013'),
+('32', '55555555E', 'A001'),
+('33', '55555555E', 'A002'),
+('34', '55555555E', 'A003'),
+('35', '55555555E', 'A004'),
+('36', '55555555E', 'A005'),
+('37', '55555555E', 'A006'),
+('6', '11111111A', 'A001'),
+('7', '11111111A', 'A002'),
+('8', '11111111A', 'A003'),
+('9', '11111111A', 'A004');
 
 -- --------------------------------------------------------
 
@@ -139,7 +139,7 @@ CREATE TABLE `notas` (
   `id_nota` varchar(100) NOT NULL,
   `id_asignatura` varchar(100) NOT NULL,
   `dni` varchar(100) NOT NULL,
-  `calificacion` decimal(10,0) NOT NULL
+  `calificacion` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -147,19 +147,19 @@ CREATE TABLE `notas` (
 --
 
 INSERT INTO `notas` (`id_nota`, `id_asignatura`, `dni`, `calificacion`) VALUES
-('N001', 'A001', '11111111A', 8),
-('N002', 'A002', '11111111A', 8),
-('N003', 'A003', '22222222B', 7),
-('N004', 'A004', '22222222B', 9),
-('N005', 'A005', '55555555E', 5),
-('N006', 'A006', '55555555E', 8),
-('N007', 'A007', '33333333C', 9),
-('N008', 'A008', '33333333C', 7),
-('N009', 'A009', '44444444D', 6),
-('N010', 'A010', '44444444D', 9),
-('N011', 'A011', '33333333C', 7),
-('N012', 'A012', '44444444D', 10),
-('N013', 'A013', '33333333C', 9);
+('N001', 'A001', '11111111A', '8'),
+('N002', 'A002', '11111111A', '8'),
+('N003', 'A003', '22222222B', '7'),
+('N004', 'A004', '22222222B', '9'),
+('N005', 'A005', '55555555E', '5'),
+('N006', 'A006', '55555555E', '8'),
+('N007', 'A007', '33333333C', '9'),
+('N008', 'A008', '33333333C', '7'),
+('N009', 'A009', '44444444D', '6'),
+('N010', 'A010', '44444444D', '9'),
+('N011', 'A011', '33333333C', '7'),
+('N012', 'A012', '44444444D', '10'),
+('N013', 'A013', '33333333C', '9');
 
 -- --------------------------------------------------------
 
@@ -221,16 +221,6 @@ ALTER TABLE `notas`
 --
 ALTER TABLE `profesor`
   ADD PRIMARY KEY (`dni_profesor`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `matriculas`
---
-ALTER TABLE `matriculas`
-  MODIFY `id_matricula` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- Restricciones para tablas volcadas
