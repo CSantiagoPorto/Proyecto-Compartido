@@ -13,6 +13,15 @@ public class Usuario {
 		this.direccion = direccion;
 		this.pass = pass;
 	}
+	
+	
+	public Usuario(String nombre, String pass) {
+		super();
+		this.nombre = nombre;
+		this.pass = pass;
+	}
+
+
 	public Usuario() {
 		super();
 	}
@@ -45,6 +54,11 @@ public class Usuario {
 		return "Usuario [nombre=" + nombre + ", apellidos=" + apellidos + ", direccion=" + direccion + ", pass=" + pass
 				+ "]";
 	}
+
+	/*public void agregarNota(String asignatura, double notas) {
+        asignatura.add(modulo);
+        notas.add(nota);
+	}*/
 	
 	
 	

@@ -5,7 +5,7 @@ public class Asignatura {
  private String denominacion;
  private String horas;
  private String descripcion;
- //private Profesor profesor o ArrayList<Profesor>
+//Añadir objeto profesor en constructor
  
  //TODO--> Constructor con todo pendiente de hacer
 public Asignatura() {

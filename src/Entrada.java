@@ -18,3 +18,8 @@ public class Entrada {
         });}
 
 }
+//Pendientes:
+//Obtener asignaturas
+//Obtener nota Ppara la asignatura
+//La clase Registro debe guardar los datos en la base de datos
+//Añadir cargo en la ventana de Registro, ahora no lo pide

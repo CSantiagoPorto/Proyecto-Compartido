@@ -3,12 +3,10 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-02-2025 a las 17:28:12
+-- Tiempo de generación: 07-02-2025 a las 10:00:09
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
---DROP DATABASE IF EXISTS proyecto;
---CREATE DATABASE proyecto;
---USE proyecto;
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -46,7 +44,9 @@ INSERT INTO `alumnos` (`dni_alumno`, `nombre`, `apellidos`, `direccion`, `pass`)
 ('22222222B', 'Ana', 'Gómez', 'Calle r 4, Ciudad', 'ana456'),
 ('33333333C', 'Juan', 'Martínez', 'Calle g 5, Ciudad', 'juan789'),
 ('44444444D', 'María', 'López', 'Calle v 6, Ciudad', 'maria000'),
-('55555555E', 'Luis', 'García', 'Calle r,7, Ciudad', 'luis999');
+('55555555E', 'Luis', 'García', 'Calle r,7, Ciudad', 'luis999'),
+('66666666A', 'Lourdes', 'Ciudad', 'Calle B, Z', 'uem'),
+('77777777A', 'Carla', 'Santiago', 'Mi calle, 32, 7', 'uem');
 
 -- --------------------------------------------------------
 
@@ -166,10 +166,10 @@ INSERT INTO `notas` (`id_nota`, `id_asignatura`, `dni`, `calificacion`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `profesor`
+-- Estructura de tabla para la tabla `profesores`
 --
 
-CREATE TABLE `profesor` (
+CREATE TABLE `profesores` (
   `dni_profesor` varchar(100) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `apellidos` varchar(100) NOT NULL,
@@ -178,10 +178,10 @@ CREATE TABLE `profesor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `profesor`
+-- Volcado de datos para la tabla `profesores`
 --
 
-INSERT INTO `profesor` (`dni_profesor`, `nombre`, `apellidos`, `direccion`, `pass`) VALUES
+INSERT INTO `profesores` (`dni_profesor`, `nombre`, `apellidos`, `direccion`, `pass`) VALUES
 ('12345678A', 'María', 'Abad', 'Calle x, 1, Ciudad', '1234'),
 ('87654321B', 'Juan', 'López', 'Calle y ,2, Ciudad', '1235');
 
@@ -219,9 +219,9 @@ ALTER TABLE `notas`
   ADD KEY `id_asignatura` (`id_asignatura`);
 
 --
--- Indices de la tabla `profesor`
+-- Indices de la tabla `profesores`
 --
-ALTER TABLE `profesor`
+ALTER TABLE `profesores`
   ADD PRIMARY KEY (`dni_profesor`);
 
 --
@@ -232,7 +232,7 @@ ALTER TABLE `profesor`
 -- Filtros para la tabla `asignaturas`
 --
 ALTER TABLE `asignaturas`
-  ADD CONSTRAINT `asignaturas_ibfk_1` FOREIGN KEY (`dni_profesor`) REFERENCES `profesor` (`dni_profesor`);
+  ADD CONSTRAINT `asignaturas_ibfk_1` FOREIGN KEY (`dni_profesor`) REFERENCES `profesores` (`dni_profesor`);
 
 --
 -- Filtros para la tabla `matriculas`

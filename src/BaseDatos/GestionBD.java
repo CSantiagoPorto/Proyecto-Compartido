@@ -9,7 +9,8 @@ import java.sql.SQLException;
 import javax.naming.spi.DirStateFactory.Result;
 
 import javax.swing.JOptionPane;
- 
+
+import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
  
 public class GestionBD {
@@ -21,6 +22,50 @@ public class GestionBD {
 	private Statement st;
 
 	private ResultSet resultado;
+	
+	
+	
+	
+	//COMPROBAR
+	public ResultSet obtenerNotasAlumno(String dniAlumno) throws SQLException {
+	    con = conexion.getConexion();
+	    //Obtener datos--> ResulSet
+	    //Guardar datos boolean
+	    
+	    //NECESITO INNER JOIN PORQUE TENGO QUE RELACIONAR LAS 2 COLUMNAS
+	    String query = "SELECT modulos.DENOMINACION, notas.NOTA FROM notas " +
+	                 "JOIN modulos ON notas.ID_MODULO = modulos.ID_ASIGNATURA " +
+	                 "WHERE notas.DNI_ALUMNO = '" + dniAlumno + "'";
+	    st = (Statement) con.createStatement();
+	    st.close(); 
+        con.close(); 
+	    return st.executeQuery(query);
+	    
+	}
+//COMPROBAR
+	public boolean ponerNota(String dniAlumno, String idModulo, String nota) throws SQLException {
+	    boolean insertado = false;
+	    con = conexion.getConexion(); 
+	    String sql = "INSERT INTO notas (DNI_ALUMNO, ID_MODULO, NOTA) VALUES ('" + dniAlumno + "', '" + idModulo + "', '" + nota + "')";
+
+	    try {
+	        st = (Statement) con.createStatement(); 
+
+	        int confirmar = st.executeUpdate(sql); 
+
+	        if (confirmar == 1) {
+	            insertado = true;
+	        }
+
+	        st.close(); 
+	        con.close(); 
+
+	    } catch (SQLException e) {
+	        e.printStackTrace(); 
+	    }
+
+	    return insertado; 
+	}
 
 	
 	//REVISADO
@@ -30,7 +75,7 @@ public class GestionBD {
 
 		con=conexion.getConexion();
 
-		String sql="insert into alumnos (DNI,NOMBRE,APELLIDOS,DIRECCION,PASSWORD) values ('"+dni+"','"+nombre+"','"+apellidos+"','"+direccion+"','"+pass+"')";
+		String sql="insert into alumnos (DNI,NOMBRE,APELLIDOS,DIRECCION,PASS) values ('"+dni+"','"+nombre+"','"+apellidos+"','"+direccion+"','"+pass+"')";
 
 		try {
 
@@ -64,7 +109,7 @@ public class GestionBD {
 
 		con=conexion.getConexion();
 
-		String sql="insert into profesores (DNI,NOMBRE,APELLIDOS,DIRECCION,PASSWORD) values ('"+dni+"','"+nombre+"','"+apellidos+"','"+direccion+"','"+pass+"')";
+		String sql="insert into profesores (DNI,NOMBRE,APELLIDOS,DIRECCION,PASS) values ('"+dni+"','"+nombre+"','"+apellidos+"','"+direccion+"','"+pass+"')";
 
 		try {
 
@@ -92,39 +137,7 @@ public class GestionBD {
 
 	}
 
-	/*public boolean insertarCiclo(String codigo, String nombre, String familia, String titulacion, String horas) throws SQLException {
-
-		boolean insertado = false;
-
-		con=conexion.getConexion();
-
-		String sql="insert into ciclosformativos (CODIGO,NOMBRE,FAMILIA,TITULACION,HORAS) values ('"+codigo+"','"+nombre+"','"+familia+"','"+titulacion+"','"+horas+"')";
-
-		try {
-
-			st=(Statement) con.createStatement();
-
-			int confirmar = st.executeUpdate(sql);
-
-			if (confirmar == 1){
-
-				insertado = true;
-
-			}
-
-			st.close();
-
-			con.close();
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-
-		}
-
-		return insertado;
-
-	}*/
+	
 	
 	
 	//revisado y adaptado
@@ -218,35 +231,7 @@ public class GestionBD {
 
 	}
  
-/*public int modificarCiclo(String codigo, String nombre, String familia, String titulacion, String horas) throws SQLException {
-		int confirmar=0;
-		con=conexion.getConexion();
-		String sql="update ciclosformativos set CODIGO='"+codigo+"', NOMBRE='"+nombre+"', FAMILIA='"+familia+"', TITULACION='"+titulacion+"', HORAS='"+horas+"' where CODIGO="+codigo+"";
-		try {
-			st=(Statement) con.createStatement();
-			confirmar=st.executeUpdate(sql);
-			st.close();
-			con.close();
-		}  catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return confirmar;
-	}
-	*/
-	/*public int modificarModulo(String clave, String ciclo, String denominacion, String horasc, String curso, String horass) throws SQLException {
-		int confirmar=0;
-		con=conexion.getConexion();
-		String sql="update modulos set CLAVE='"+clave+"', CICLO='"+ciclo+"', DENOMINACION='"+denominacion+"', HORASC='"+horasc+"', CURSO='"+curso+"', HORASS='"+horass+"' where CLAVE="+clave+"";
-		try {
-			st=(Statement) con.createStatement();
-			confirmar=st.executeUpdate(sql);
-			st.close();
-			con.close();
-		}  catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return confirmar;
-	}*/
+
 	//REVISADO
 	public int eliminarAlumno(String dni) throws SQLException {
 		int confirmar=0;
@@ -278,40 +263,12 @@ public class GestionBD {
 		return confirmar;
 	}
 	
-	/*public int eliminarCiclo(String codigo) throws SQLException {
-		int confirmar=0;
-		con=conexion.getConexion();
-		String sql="delete from ciclosformativos where CODIGO="+codigo;
-		try {
-			st=(Statement) con.createStatement();
-			confirmar=st.executeUpdate(sql);
-			st.close();
-			con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return confirmar;
-	}
-	
-	public int eliminarModulo(String clave) throws SQLException {
-		int confirmar=0;
-		con=conexion.getConexion();
-		String sql="delete from modulos where CLAVE="+clave;
-		try {
-			st=(Statement) con.createStatement();
-			confirmar=st.executeUpdate(sql);
-			st.close();
-			con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return confirmar;
-	}*/
+
 	//revisado y cambiado
-	public boolean comprobarAlumno(String dni_alumno, String pass) throws SQLException {
+	public boolean comprobarAlumno(String dni, String pass) throws SQLException {
 		boolean encontrado = false;
 		con=conexion.getConexion();
-		String sql="SELECT * FROM alumnos WHERE DNI='"+dni_alumno+"'and PASSWORD='"+pass+"' ";
+		String sql="SELECT * FROM alumnos WHERE DNI='"+dni+"'and PASS='"+pass+"' ";
 		try{
 			st=(Statement) con.createStatement();
 			resultado= st.executeQuery(sql);
@@ -325,7 +282,8 @@ public class GestionBD {
 		}
 		return encontrado;
 	}
-	//revisado y cambiado
+	
+	//revisado y cambiado---> Te dice si lo encontró o no pero no te devuelve los datos
 	public boolean comprobarProfesor(String dni_profesor, String pass) throws SQLException {
 		boolean encontrado = false;
 		con=conexion.getConexion();
@@ -344,61 +302,25 @@ public class GestionBD {
 		return encontrado;
 	}
 	
-	/*public boolean comprobarGerencia(String dni, String pass) throws SQLException {
-		boolean encontrado = false;
+	
+	//Necesitamos que devuelva los datos del alumno. Si es boolean sólo devuelve si ha encontrado o no el alumno
+	public ResultSet buscarAlumno(String nombre, String password) throws SQLException {
+		
 		con=conexion.getConexion();
-		String sql="SELECT * FROM gerencia WHERE DNI='"+dni+"'and PASSWORD='"+pass+"' ";
+		String sql="SELECT * FROM alumnos WHERE NOMBRE='"+ nombre +"'AND PASS='"+password+"'";
 		try{
 			st=(Statement) con.createStatement();
-			resultado= st.executeQuery(sql);
-			while (resultado.next()){
-				encontrado = true;
-			}
+			return st.executeQuery(sql);
+			
 			
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return encontrado;
-	}
- 
-public boolean comprobarCiclos(String dni, String pass) throws SQLException {
-		boolean encontrado = false;
-		con=conexion.getConexion();
-		String sql="SELECT * FROM ciclosformativos WHERE DNI='"+dni+"'and PASSWORD='"+pass+"' ";
-		try{
-			st=(Statement) con.createStatement();
-			resultado= st.executeQuery(sql);
-			while (resultado.next()){
-				encontrado = true;
-			}
-			
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return encontrado;
-	}*/
-	//REVISADO Y ADAPTADO
-	public boolean buscarAlumno(String dni_alumno) throws SQLException {
-		boolean encontrado = false;
-		con=conexion.getConexion();
-		String sql="SELECT * FROM alumnos WHERE DNI='"+dni_alumno+"' ";
-		try{
-			st=(Statement) con.createStatement();
-			resultado= st.executeQuery(sql);
-			while (resultado.next()){
-				encontrado = true;
-			}
-			
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return encontrado;
+		return null;
 	}
 	//REVISADO Y ADAPTADO
-	public boolean buscarProfesor(String dni_profesor) throws SQLException {
+	public boolean existeProfesor(String dni_profesor) throws SQLException {
 		boolean encontrado = false;
 		con=conexion.getConexion();
 		String sql="SELECT * FROM profesores WHERE DNI='"+dni_profesor+"' ";
@@ -416,23 +338,7 @@ public boolean comprobarCiclos(String dni, String pass) throws SQLException {
 		return encontrado;
 	}
 	
-	/*public boolean buscarCiclo(String codigo) throws SQLException {
-		boolean encontrado = false;
-		con=conexion.getConexion();
-		String sql="SELECT * FROM ciclosformativos WHERE CODIGO='"+codigo+"' ";
-		try{
-			st=(Statement) con.createStatement();
-			resultado= st.executeQuery(sql);
-			while (resultado.next()){
-				encontrado = true;
-			}
-			
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return encontrado;
-	}*/
+
 	//REVISADO
 	public boolean buscarAsignatura(String id_asignatura) throws SQLException {
 		boolean encontrado = false;
@@ -465,34 +371,21 @@ public boolean comprobarCiclos(String dni, String pass) throws SQLException {
 		}
 		return resultado;
 	}
+	//REVISADO Y ADAPTADO PARA QUE BUSQUE POR NOMBRE
 	
-	public ResultSet BuscarProfesor(String dni_profesor) throws SQLException {
-		con=conexion.getConexion();
-		String sql="SELECT * FROM profesores WHERE DNI='"+dni_profesor+"' ";
-		try{
-			st=(Statement) con.createStatement();
-			resultado= st.executeQuery(sql);
-			
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return resultado;
+	public ResultSet buscarProfesor(String nombre, String password) throws SQLException {
+	    con = conexion.getConexion();
+	    String sql = "SELECT * FROM profesores WHERE NOMBRE='" + nombre + "' AND PASS='" + password + "'"; 
+	    try {
+	        st = (Statement) con.createStatement();
+	        return st.executeQuery(sql); 
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return null; 
 	}
+
 	
-	/*public ResultSet devolverCiclo(String codigo) throws SQLException {
-		con=conexion.getConexion();
-		String sql="SELECT * FROM ciclosformativos WHERE CODIGO='"+codigo+"' ";
-		try{
-			st=(Statement) con.createStatement();
-			resultado= st.executeQuery(sql);
-			
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return resultado;
-	}*/
 	//REVISADO
 	public ResultSet BuscarAsignatura(String id_asignatura) throws SQLException {
 		con=conexion.getConexion();
@@ -533,18 +426,7 @@ public boolean comprobarCiclos(String dni, String pass) throws SQLException {
 		}
 		return resultado;
 	}
-	/*public ResultSet devolverCiclos() throws SQLException {
-		con=conexion.getConexion();
-		String sql="SELECT * FROM ciclosformativos";
-		try{
-			st=(Statement) con.createStatement();
-			resultado= st.executeQuery(sql);
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return resultado;
-	}*/
+	
 	
 	public ResultSet BuscarTodosAsignaturas() throws SQLException {
 		con=conexion.getConexion();

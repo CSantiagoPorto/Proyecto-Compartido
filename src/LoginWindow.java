@@ -1,18 +1,26 @@
 import javax.swing.*;
 
+import BaseDatos.GestionBD;
 import model.Alumno;
+import model.Profesor;
+import model.Usuario;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class LoginWindow extends JFrame {
     private JTextField userField;
     private JPasswordField passwordField;
     private JComboBox<String> cbCargo;
     private JButton logo;
+    private GestionBD db;
 
     public LoginWindow() {
+    	
+    	db = new GestionBD();
     	setResizable(false);
     	getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 10));
     	getContentPane().setBackground(new Color(176, 224, 230));
@@ -46,6 +54,7 @@ public class LoginWindow extends JFrame {
         getContentPane().add(cargoLabel);
 
         cbCargo = new JComboBox<>(new String[]{"Seleccione", "Alumno", "Profesor"});
+        cbCargo.setFont(new Font("Verdana", Font.PLAIN, 14));
         cbCargo.setBounds(120, 110, 200, 25);
         getContentPane().add(cbCargo);
         logo = new JButton("");
@@ -54,18 +63,22 @@ public class LoginWindow extends JFrame {
         getContentPane().add(logo);
 
         JButton loginbtn = new JButton("Iniciar Sesión");
+        loginbtn.setFont(new Font("Tahoma", Font.PLAIN, 14));
         loginbtn.setBounds(181, 160, 150, 30);
         getContentPane().add(loginbtn);
 
         JButton limpiarbtn = new JButton("Limpiar");
+        limpiarbtn.setFont(new Font("Tahoma", Font.PLAIN, 14));
         limpiarbtn.setBounds(30, 200, 100, 30);
         getContentPane().add(limpiarbtn);
 
         JButton salirbtn = new JButton("Salir");
+        salirbtn.setFont(new Font("Tahoma", Font.PLAIN, 14));
         salirbtn.setBounds(389, 200, 80, 30);
         getContentPane().add(salirbtn);
         
         JButton btnRegistrar = new JButton("Registrese");
+        btnRegistrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
         btnRegistrar.setForeground(Color.BLUE);
         btnRegistrar.setBounds(206, 200, 100, 30);
         getContentPane().add(btnRegistrar);
@@ -107,26 +120,56 @@ public class LoginWindow extends JFrame {
         String user = userField.getText();
         String password = new String(passwordField.getPassword());
 
-        if ("Seleccione".equals(cargo)) {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione un cargo.");
-            return;
-        }
+        if ("Alumno".equals(cargo)) {
+            try {
+                ResultSet rs = db.buscarAlumno(user, password); 
+                if (rs != null && rs.next()) {
+                    
+                    Alumno alumno = new Alumno(
+                    	rs.getString("dni_alumno"),
+                        rs.getString("nombre"),
+                        rs.getString("apellidos"),
+                        rs.getString("direccion"),
+                        rs.getString("pass")
+                        
+                    );
 
-        if ("Alumno".equals(cargo) && "alumno".equalsIgnoreCase(user) && "uem".equals(password)) {
-            Alumno alumno = new Alumno("Carla", "uem");
-            alumno.agregarNota("Desarrollo de Interfaces", 6.5);
-            alumno.agregarNota("Acceso de Datos", 8.0);
-            alumno.agregarNota("Programación", 9.3);
+                    new StudentWindow(alumno).setVisible(true); 
+                    dispose(); 
+                } else {
+                    JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
 
-            new StudentWindow(alumno).setVisible(true);
-            dispose();
-        } else if ("Profesor".equals(cargo) && "profesor".equalsIgnoreCase(user) && "uem".equals(password)) {
-            new TeacherWindow().setVisible(true);
-            //Si todo está correcto abre la ventana profesor
-            dispose();//cierra esta ventana
+        } else if ("Profesor".equals(cargo)) { 
+            try {
+                ResultSet rs = db.buscarProfesor(user, password); 
+                if (rs != null && rs.next()) { 
+                    
+                    Profesor profesor = new Profesor(
+                        rs.getString("nombre"),
+                        rs.getString("apellidos"),
+                        rs.getString("direccion"),
+                        rs.getString("pass"),
+                        rs.getString("dni_profesor")
+                    );
+
+                    new TeacherWindow(profesor).setVisible(true); 
+                    dispose(); 
+                } else {
+                    JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un cargo.");
         }
     }
+
     
 }

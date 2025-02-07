@@ -1,6 +1,12 @@
 import javax.swing.*;
+
+import BaseDatos.GestionBD;
 import model.Alumno;
+import model.Profesor;
+
 import java.awt.event.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.awt.Toolkit;
 import java.awt.Color;
@@ -12,11 +18,16 @@ public class TeacherWindow extends JFrame implements ActionListener, ItemListene
     private JTextField NotaTextField;
     private JButton Guardarbtn;
     private JButton CerrarSesionbtn;
+    private GestionBD db;
 
     // ArrayList con los alumnos
     ArrayList<Alumno> listaAlumnos = new ArrayList<>();
+	private Profesor profesor;
 
-    public TeacherWindow() {
+    public TeacherWindow(Profesor profesor) {
+    	this.profesor = profesor;
+    	
+    	db= new GestionBD();
         
         setResizable(false);
         getContentPane().setBackground(new Color(176, 224, 230));
@@ -26,13 +37,7 @@ public class TeacherWindow extends JFrame implements ActionListener, ItemListene
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        // Inicializar la lista de alumnos
-        listaAlumnos.add(new Alumno("Pepe", "Perez"));
-        listaAlumnos.add(new Alumno("Ana", "Gómez"));
-        listaAlumnos.add(new Alumno("Juan", "Martínez"));
-        listaAlumnos.add(new Alumno("María", "López"));
-        listaAlumnos.add(new Alumno("Luis", "García"));
-        listaAlumnos.add(new Alumno("Laura", "Torres"));
+
 
         
         JLabel moduloLabel = new JLabel("Módulo:");
@@ -40,8 +45,9 @@ public class TeacherWindow extends JFrame implements ActionListener, ItemListene
         moduloLabel.setBounds(30, 30, 80, 25);
         getContentPane().add(moduloLabel);
 
-        // ComboBox con Array de notas
-        ModulosComboBox = new JComboBox<>(new String[]{"Desarrollo de Interfaces", "Acceso de Datos", "Programación"});
+        ModulosComboBox = new JComboBox<>();
+       
+        
         ModulosComboBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
         ModulosComboBox.setBounds(105, 30, 180, 25);
         getContentPane().add(ModulosComboBox);
@@ -84,8 +90,8 @@ public class TeacherWindow extends JFrame implements ActionListener, ItemListene
         ModulosComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                actualizarAlumnos();// Llamamos a actualizar alumnos
-                //Así al cambiar módulo cambia la lista
+             //   actualizarAlumnos();// Llamamos a actualizar alumnos
+                //CAMBIAR A DB
             }
         });
 
@@ -102,19 +108,22 @@ public class TeacherWindow extends JFrame implements ActionListener, ItemListene
             }
         });
 
-        actualizarAlumnos();
+      //  actualizarAlumnos();
     }
 
-    // Método para actualizar la lista de alumnos
+    /* Método para actualizar la lista de alumnos 
     private void actualizarAlumnos() {
         AlumnosComboBox.removeAllItems();
         for (Alumno alumno : listaAlumnos) {
             AlumnosComboBox.addItem(alumno.getNombre());
         }
-    }
+    }*/
 
    
-    private void guardarNota() {//Aquí se guarda la nota
+    private void guardarNota() {//ESTO HAY QUE CAMBIARLO DE CLASE
+    	//AHORA NECESITAMOS PASÁRSELA A LA BD-> pARA GUARDAR NECESITO UN MÉTODO BOOLEAN QUE HAGA UNA INSERCION
+    	//creo la query en GestionDB--> un objeto Statement--> voy a necesitar un executeUpdate para hacer el INSERT
+    	//Luego aquí sólo llamo al método 
         String moduloSelec = (String) ModulosComboBox.getSelectedItem();
         String alumnoSelec = (String) AlumnosComboBox.getSelectedItem();
         String notaIngresada = NotaTextField.getText();
@@ -126,9 +135,24 @@ public class TeacherWindow extends JFrame implements ActionListener, ItemListene
             JOptionPane.showMessageDialog(this, "La nota no es válida", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
 
         JOptionPane.showMessageDialog(this, "Nota guardada:\n" + "Módulo: " + moduloSelec + "\n" + "Alumno: " + alumnoSelec + "\n" + "Nota: " + nota);
     }
+    
+    public void cargarModulos() {
+		try {
+			ResultSet rs= db.BuscarTodosAsignaturas();
+			while (rs.next()) {
+				ModulosComboBox.addItem(rs.getString("DENOMINACION"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 
     @Override
     public void itemStateChanged(ItemEvent e) {

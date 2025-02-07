@@ -20,9 +20,9 @@ public class Conexion {
 
 			String usuario = "root";
 
-			String contrasenia = "";
+			String pass = "";
 
-			conn = (Connection) DriverManager.getConnection(url, usuario, contrasenia);
+			conn = (Connection) DriverManager.getConnection(url, usuario, pass);
 
 		}
 
